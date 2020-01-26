@@ -88,6 +88,7 @@ Example:
 * [x/trace2.go](x/trace2.go)
 
 ```
+$ go run x/trace2.go
         91.878µs    |Get Conn                   |golangleipzig.space:443
        390.407µs    |DNS Start                  |{Host:golangleipzig.space}
       2.515361ms    |DNS Info                   |{Addrs:[{IP:185.199.109.153 Zone:} ...
