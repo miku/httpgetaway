@@ -71,6 +71,32 @@ We saw that a HTTP round trip takes some time. WHW?
 
 Facilities in `net/http/httptrace` ([https://golang.org/pkg/net/http/httptrace](https://golang.org/pkg/net/http/httptrace)).
 
+# A struct full of callbacks
+
+```go
+trace := &httptrace.ClientTrace{
+        GotConn: func(connInfo httptrace.GotConnInfo) {
+            fmt.Printf("Got Conn: %+v\n", connInfo)
+        },
+        DNSDone: func(dnsInfo httptrace.DNSDoneInfo) {
+            fmt.Printf("DNS Info: %+v\n", dnsInfo)
+        },
+    }
+```
+
+Wrap a `http.Request` with client trace (using [WithContext](https://golang.org/pkg/net/http/#Request.WithContext), 1.7).
+
+```go
+req, _ := http.NewRequest("GET", "http://example.com", nil)
+req = req.WithContext(httptrace.WithClientTrace(req.Context(), trace))
+```
+
+# Implementations may use the hooks
+
+Implementations of `http.RoundTripper` can choose, whether they call back to the tracer.
+
+# Example
+
 * [x/trace1.go](x/trace1.go)
 
 ```
@@ -99,3 +125,15 @@ $ go run x/trace2.go
     207.149618ms    |Got First Response Byte    |
     207.441984ms    |HTTP status code           |200 OK
 ```
+
+# Tracing across redirects
+
+* possibly by using a custom `http.RoundTripper` which keeps track of the current URL
+* functions are first class values in Go, the ClientTrace hook may be a method
+  on a struct (with state, e.g. the current URL)
+
+Example:
+
+* [x/trace3.go](x/trace3.go)
+
+
