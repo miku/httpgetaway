@@ -37,4 +37,19 @@ Any questions?
 
 * HTTP/3 is in the pipeline (but [not usable](https://caniuse.com/#feat=http3) today)
 
+# Core elements
+
+* Resources, Representations, limited set of operations (verbs)
+* Status codes
+* Redirection
+* Transport
+* Security
+
+# Go net and net/http packages
+
+Go comes with solid networking support in the standard library. Especially, the
+`net/http` suite is both usable and extendable.
+
+First, we want to look at the extension points.
+
 
