@@ -141,3 +141,35 @@ Example:
 * [httpstat](https://github.com/davecheney/httpstat)
 
 ![](static/httpstat.png)
+
+# What is a RoundTripper?
+
+> RoundTripper is an interface representing the ability to execute a single
+> HTTP transaction, obtaining the Response for a given Request.
+
+* single HTTP transaction
+* responsible to retrieve a response (only)
+* the `http.Request` should be left alone by the caller until `resp.Body` is closed
+* must close request body (maybe after return)
+
+```go
+type RoundTripper interface {
+    RoundTrip(*Request) (*Response, error)
+}
+```
+
+# Use cases
+
+* implement custom round tripper for testing request, response scenarios
+* a RT that adds auth headers
+* intercept request for caching
+* intercept for auditing
+* rate limiting
+* not concerned with HTTP status codes
+
+# Example caching transport
+
+Keep response body in memory, very basic.
+
+* [x/cachingrt.go](x/cachingrt.go)
+
