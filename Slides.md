@@ -26,4 +26,12 @@ Any questions?
 
 # Retry
 
-* HTTP is a (text-based) application layer protocol ([RFC2068](https://tools.ietf.org/html/rfc2068)ff)
+* HTTP is a (text-based) application layer protocol
+  ([RFC2068](https://tools.ietf.org/html/rfc2068) ...)
+* HTTP/2 provides an optimized transport, but: "HTTP's existing semantics
+  remain unchanged." ([RFC7540](https://tools.ietf.org/html/rfc7540))
+
+> HTTP/2 is used by 42.8% of all the websites. --
+> [https://w3techs.com/technologies/details/ce-http2](https://w3techs.com/technologies/details/ce-http2)
+
+* HTTP/3 is in the pipeline (but [not usable](https://caniuse.com/#feat=http3) today)
