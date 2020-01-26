@@ -1,2 +1,5 @@
 # httpworld
-The world of HTTP (clients) in Go.
+
+The wonderful world of HTTP (clients) in Go.
+
+* [Slides](Slides.md)
