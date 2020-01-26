@@ -16,6 +16,8 @@ if err != nil {
 defer r.Body.Close()
 ```
 
+* [x/hello.go](x/hello.go)
+
 # Thanks
 
 Thanks, that's it! The above covers probably 80% of your needs. Do not make it
