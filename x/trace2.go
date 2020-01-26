@@ -44,7 +44,7 @@ func main() {
 	if flag.NArg() > 0 {
 		site = prependHTTP(flag.Arg(0))
 	}
-	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', 0)
+	w := tabwriter.NewWriter(os.Stdout, 0, 0, 4, ' ', tabwriter.Debug)
 	defer w.Flush()
 	req, err := http.NewRequest("GET", site, nil)
 	if err != nil {
