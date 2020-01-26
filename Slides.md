@@ -1,4 +1,4 @@
-# HTTP
+# HTTP Getaway
 
 HTTP extension points and alternative implementations in Go.
 
