@@ -63,6 +63,8 @@ We saw that a HTTP round trip takes some time. WHW?
 > In Go 1.7 we introduced HTTP tracing, a facility to gather fine-grained
 > information throughout the lifecycle of an HTTP client request.
 
+Facilities in `net/http/httptrace` ([https://golang.org/pkg/net/http/httptrace](https://golang.org/pkg/net/http/httptrace)).
+
 * [x/trace1.go](x/trace1.go)
 
 ```
@@ -71,3 +73,6 @@ DNS Info: {Addrs:[{IP:185.199.109.153 Zone:} {IP:185.199.110.153 Zone:}] Err:<ni
 Got Conn: {Conn:0xc000108000 Reused:false WasIdle:false IdleTime:0s}
 ```
 
+# Tracing hooks
+
+The `httptrace.ClientTrace` contains 16 hook methods.
