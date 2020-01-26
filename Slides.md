@@ -54,4 +54,20 @@ Go comes with solid networking support in the standard library. Especially, the
 
 First, we want to look at the extension points.
 
+# Tracing
+
+We saw that a HTTP round trip takes some time. WHW?
+
+* [Introducing HTTP Tracing](https://blog.golang.org/http-tracing) (2016)
+
+> In Go 1.7 we introduced HTTP tracing, a facility to gather fine-grained
+> information throughout the lifecycle of an HTTP client request.
+
+* [x/trace1.go](x/trace1.go)
+
+```
+$ go run x/trace1.go
+DNS Info: {Addrs:[{IP:185.199.109.153 Zone:} {IP:185.199.110.153 Zone:}] Err:<nil> Coalesced:false}
+Got Conn: {Conn:0xc000108000 Reused:false WasIdle:false IdleTime:0s}
+```
 
