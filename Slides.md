@@ -136,4 +136,8 @@ Example:
 
 * [x/trace3.go](x/trace3.go)
 
+# Command line tool
 
+* [httpstat](https://github.com/davecheney/httpstat)
+
+![](static/httpstat.png)
