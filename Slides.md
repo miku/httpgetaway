@@ -76,3 +76,19 @@ Got Conn: {Conn:0xc000108000 Reused:false WasIdle:false IdleTime:0s}
 # Tracing hooks
 
 The `httptrace.ClientTrace` contains 16 hook methods.
+
+Example:
+
+* [x/trace2.go](x/trace2.go)
+
+```
+        91.878µs    |Get Conn                   |golangleipzig.space:443
+       390.407µs    |DNS Start                  |{Host:golangleipzig.space}
+      2.515361ms    |DNS Info                   |{Addrs:[{IP:185.199.109.153 Zone:} {IP:185.199.110.153 Zone:}] Err:<nil> Coalesced:false}
+      2.582607ms    |Conn Start                 |tcp 185.199.109.153:443
+     20.334243ms    |Conn Done                  |tcp 185.199.109.153:443 <nil>
+...
+    187.396936ms    |Wrote Request              |{Err:<nil>}
+    207.149618ms    |Got First Response Byte    |
+    207.441984ms    |HTTP status code           |200 OK
+```
