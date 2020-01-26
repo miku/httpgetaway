@@ -173,3 +173,6 @@ Keep response body in memory, very basic.
 
 * [x/cachingrt.go](x/cachingrt.go)
 
+# Let's talk about timeouts
+
+* often first contact with alternatives - the default client has no timeouts
