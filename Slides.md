@@ -47,6 +47,12 @@ Any questions?
 * Transport
 * Security
 
+# Today
+
+* Tracing
+* Alternative clients
+* Utilities
+
 # Go net and net/http packages
 
 Go comes with solid networking support in the standard library. Especially, the
