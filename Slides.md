@@ -33,10 +33,17 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 * File
 * FileSystem
 * Flusher
-* Handler
+* **Handler**, `ServeHTTP(ResponseWriter, *Request)`
 * Hijacker
 * PublicSuffixList
 * Pusher
 * ResponseWriter
 * RoundTripper
+
+## Hijacker
+
+* can be implemented by ReponseWriters to hand over the TCP connection (and then leave it alone)
+* used, e.g. by websocket libraries
+
+![](static/hijack.gif)
 
