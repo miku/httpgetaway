@@ -28,14 +28,14 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 <!--  $ find . -type f | xargs cat | grep '^type[ ]*[A-Z].* interface {' | awk '{print $2}' | sort -->
 
 * BufferPool
-* CloseNotifier
-* CookieJar
+* CloseNotifier, deprecated with [Go 1.11](https://golang.org/doc/go1.11#net/http)
+* **CookieJar**
 * **File**
 * **FileSystem**
 * Flusher
 * **Handler**, `ServeHTTP(ResponseWriter, *Request)`
 * **Hijacker**, expose TCP connection to response writer
-* PublicSuffixList
+* PublicSuffixList, for cookies, jars ([RFC 6265 Section 5.3, Note 5](https://tools.ietf.org/html/rfc6265#section-5.3))
 * Pusher
 * ResponseWriter
 * RoundTripper
@@ -62,3 +62,7 @@ Example: [x/webshare.go](x/webshare.go).
 
 ![](static/webshare.png)
 
+## CookieJar
+
+* getting and setting cookies
+* an in-memory implementation in [net/http/cookiejar](https://golang.org/pkg/net/http/cookiejar)
