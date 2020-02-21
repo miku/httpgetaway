@@ -56,3 +56,7 @@ Abstracts file system like access.
 
 Use `http.FileServer(root FileSystem) Handler` to turn a filesystem into an http Handler.
 
+The `http.Dir` is an `http.FileSystem` allowing access to local filesytem.
+
+
+
