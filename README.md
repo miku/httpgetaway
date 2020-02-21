@@ -321,3 +321,16 @@ Allows interception of HTTP requests on various occasions (currently 16).
 
 * basic example: [x/trace1.go](x/trace1.go)
 * all callbacks: [x/trace2.go](x/trace2.go)
+
+Tool: [httpstat](https://github.com/davecheney/httpstat)
+
+
+# HTTP/2 Pop Quiz
+
+* What percentage of sites use HTTP/2 today?
+
+<!--
+
+    HTTP/2 is used by 43.4% of all the websites.
+    https://w3techs.com/technologies/details/ce-http2
+-->
