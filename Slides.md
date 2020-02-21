@@ -47,3 +47,12 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 
 ![](static/hijack.gif)
 
+## File and FileSystem
+
+* `http.File` is a `io.ReadSeekCloser` plus `ReadDir` and `Stat`
+* `http.FileSystem` is a single method interface `Open(name string) (http.File, error)`
+
+Abstracts file system like access.
+
+Use `http.FileServer(root FileSystem) Handler` to turn a filesystem into an http Handler.
+
