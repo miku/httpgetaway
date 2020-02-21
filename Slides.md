@@ -36,10 +36,16 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 * **Hijacker**, expose TCP connection to response writer
 * PublicSuffixList, for cookies, jars ([RFC 6265 Section 5.3, Note 5](https://tools.ietf.org/html/rfc6265#section-5.3))
 * Pusher
-* ResponseWriter
-* RoundTripper
+* **ResponseWriter**
+* **RoundTripper**
 
 ## Hijacker
+
+```go
+type Hijacker interface {
+        Hijack() (net.Conn, *bufio.ReadWriter, error)
+}
+```
 
 * can be implemented by ReponseWriters to hand over the TCP connection (and then leave it alone)
 * used, e.g. by websocket libraries
@@ -62,6 +68,13 @@ Example: [x/webshare.go](x/webshare.go).
 ![](static/webshare.png)
 
 ## CookieJar
+
+```go
+type CookieJar interface {
+        SetCookies(u *url.URL, cookies []*Cookie)
+        Cookies(u *url.URL) []*Cookie
+}
+```
 
 * getting and setting cookies
 * an in-memory implementation in [net/http/cookiejar](https://golang.org/pkg/net/http/cookiejar)
@@ -94,6 +107,20 @@ and response body
 An interface (w) and a struct (r).
 
 ## RoundTripper
+
+> RoundTripper is an interface representing the ability to execute a single
+> HTTP transaction, obtaining the Response for a given Request.
+
+* should not *interpret* the response (e.g. err == nil, even with HTTP errors)
+
+```go
+type RoundTripper interface {
+        RoundTrip(*Request) (*Response, error)
+}
+```
+
+File serving uses an internal `fileTransport` struct, that is a RoundTripper.
+
 
 # Configuration and Timeouts
 
@@ -141,6 +168,12 @@ request and first non-redirect request.
 > how redirects are processed. If returned, the next request is not sent and
 > the most recent response is returned with its body unclosed.
 
+The if a *policyFunc* is given, it is called and receives the upcoming request
+and the previous request.
+
+> The arguments req and via are the upcoming request and the requests made
+> already, oldest first.
+
 ```go
     ...
     Client: &http.Client{
@@ -150,6 +183,12 @@ request and first non-redirect request.
         },
     ...
 ```
+
+Using special case: `http.ErrUseLastResponse` to track responses.
+
+> As a special case, if CheckRedirect returns ErrUseLastResponse, then the
+> most recent response is returned with its body unclosed, along with a nil
+> error.
 
 Example: [x/record3xx.go](x/record3xx.go) -- a client that keeps track of redirect hops.
 
@@ -274,4 +313,5 @@ Allows interception of HTTP requests on various occasions (currently 16).
     // ...
 ```
 
-* example: [x/trace1.go](x/trace1.go)
+* basic example: [x/trace1.go](x/trace1.go)
+* all callbacks: [x/trace2.go](x/trace2.go)
