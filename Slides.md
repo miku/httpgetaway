@@ -185,8 +185,56 @@ client := &http.Client{Transport: tr}
 resp, err := client.Get("https://example.com")
 ```
 
-Other options:
+The default client uses a default transport:
 
+```go
+var DefaultTransport RoundTripper = &Transport{
+    Proxy: ProxyFromEnvironment,
+    DialContext: (&net.Dialer{
+        Timeout:   30 * time.Second,
+        KeepAlive: 30 * time.Second,
+        DualStack: true,
+    }).DialContext,
+    ForceAttemptHTTP2:     true,
+    MaxIdleConns:          100,
+    IdleConnTimeout:       90 * time.Second,
+    TLSHandshakeTimeout:   10 * time.Second,
+    ExpectContinueTimeout: 1 * time.Second,
+}
+```
 
+A few more (newer) options to control various buffer sizes.
+
+# Alternative Client implementation with retries
+
+* [sethgrid/pester](https://github.com/sethgrid/pester)
+
+> pester wraps Go's standard lib http client to provide several options to
+> increase resiliency in your request. If you experience poor network
+> conditions or requests could experience varied delays, you can now pester the
+> endpoint for data.
+
+Very easy to swap:
+
+```go
+/* swap in replacement, just switch
+   http.{Get|Post|PostForm|Head|Do} to
+   pester.{Get|Post|PostForm|Head|Do}
+*/
+resp, err := pester.Get("http://sethammons.com")
+```
+
+Supports a variety of backoff strategies, e.g. LinearBackoff or
+ExponentialJitterBackoff.
+
+A http.Client [is
+wrapped](https://github.com/sethgrid/pester/blob/68a33a018ad0ac8266f272ec669307a1829c0486/pester.go#L27-L53),
+exposing additional options - a kind of decoration of a
+[http.Client](https://golang.org/pkg/net/http/#Client), which itself can have
+custom configuration.
+
+Additional resiliency on the application level by supporting [429 Too Many
+Requests](https://github.com/sethgrid/pester/blob/68a33a018ad0ac8266f272ec669307a1829c0486/pester.go#L52).
 
 # Tracing
+
