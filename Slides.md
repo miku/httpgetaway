@@ -30,8 +30,8 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 * BufferPool
 * CloseNotifier
 * CookieJar
-* File
-* FileSystem
+* **File**
+* **FileSystem**
 * Flusher
 * **Handler**, `ServeHTTP(ResponseWriter, *Request)`
 * Hijacker
