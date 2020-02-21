@@ -121,6 +121,8 @@ type RoundTripper interface {
 
 File serving uses an internal `fileTransport` struct, that is a RoundTripper.
 
+Example caching RoundTripper: [x/cachingrt.go](x/cachingrt.go).
+
 
 # Configuration and Timeouts
 
