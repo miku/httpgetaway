@@ -28,7 +28,7 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 <!--  $ find . -type f | xargs cat | grep '^type[ ]*[A-Z].* interface {' | awk '{print $2}' | sort -->
 
 * BufferPool
-* CloseNotifier, deprecated with [Go 1.11](https://golang.org/doc/go1.11#net/http)
+* ~~CloseNotifier~~, deprecated with [Go 1.11](https://golang.org/doc/go1.11#net/http)
 * **CookieJar**
 * **File**
 * **FileSystem**
