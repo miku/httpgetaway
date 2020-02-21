@@ -37,7 +37,7 @@ The [net/http](https://golang.org/pkg/net/http/) contains 12 interfaces (02/2020
 * PublicSuffixList, for cookies, jars ([RFC 6265 Section 5.3, Note 5](https://tools.ietf.org/html/rfc6265#section-5.3))
 * Pusher
 * **ResponseWriter**
-* **RoundTripper**
+* **RoundTripper**, core interface
 
 ## Hijacker
 
@@ -91,6 +91,8 @@ type ResponseWriter interface {
     WriteHeader(statusCode int) // First call to write will call this.
 }
 ```
+
+The default unexported implementation is `http.response`.
 
 The standard library server has various implementations, e.g.
 
