@@ -58,5 +58,7 @@ Use `http.FileServer(root FileSystem) Handler` to turn a filesystem into an http
 
 The `http.Dir` is an `http.FileSystem` allowing access to local filesytem.
 
+Example: [x/wbshare.go](x/webshare.go).
+
 
 
