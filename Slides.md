@@ -66,3 +66,30 @@ Example: [x/webshare.go](x/webshare.go).
 
 * getting and setting cookies
 * an in-memory implementation in [net/http/cookiejar](https://golang.org/pkg/net/http/cookiejar)
+
+## ResponseWriter
+
+>  A ResponseWriter interface is used by an HTTP handler to construct an HTTP
+>  response.
+
+```go
+type ResponseWriter interface {
+    Header() Header
+    Write([]byte) (int, error)
+    WriteHeader(statusCode int) // First call to write will call this.
+}
+```
+
+The standard library server has various implementations, e.g.
+
+* [httptest.ResponseRecorder](https://golang.org/pkg/net/http/httptest/#ResponseRecorder)
+* [http.populateResponse](https://github.com/golang/go/blob/ccb95b6492ad6e7a7d1a7fda896baee4caffb3b4/src/net/http/filetransport.go#L65-L76),
+  using a [io.Pipe](https://golang.org/pkg/io/#Pipe) to connect file content
+and response body
+
+## Question regarding pointer receivers?
+
+* [In Go HTTP handlers, why is the ResponseWriter a value but the Request a
+  pointer?](https://stackoverflow.com/questions/13255907/in-go-http-handlers-why-is-the-responsewriter-a-value-but-the-request-a-pointer) (SO: 76, 7y3m ago, 8k)
+
+An interface (w) and a struct (r).
