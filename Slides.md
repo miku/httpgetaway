@@ -14,7 +14,6 @@ Configuration options and extension points for HTTP clients.
 * interfaces
 * configuration
 * redirects
-* timeouts
 * retries
 * tracing
 
@@ -82,7 +81,7 @@ type ResponseWriter interface {
 
 The standard library server has various implementations, e.g.
 
-* [httptest.ResponseRecorder](https://golang.org/pkg/net/http/httptest/#ResponseRecorder)
+* [httptest.ResponseRecorder](https://golang.org/pkg/net/http/httptest/#ResponseRecorder), example: [x/resprec.go](x/resprec.go)
 * [http.populateResponse](https://github.com/golang/go/blob/ccb95b6492ad6e7a7d1a7fda896baee4caffb3b4/src/net/http/filetransport.go#L65-L76),
   using a [io.Pipe](https://golang.org/pkg/io/#Pipe) to connect file content
 and response body
@@ -93,3 +92,11 @@ and response body
   pointer?](https://stackoverflow.com/questions/13255907/in-go-http-handlers-why-is-the-responsewriter-a-value-but-the-request-a-pointer) (SO: 76, 7y3m ago, 8k)
 
 An interface (w) and a struct (r).
+
+## RoundTripper
+
+# Configuration and Timeouts
+
+# Redirect Tracking
+
+# Tracing
