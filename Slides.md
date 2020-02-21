@@ -97,6 +97,75 @@ An interface (w) and a struct (r).
 
 # Configuration and Timeouts
 
-# Redirect Tracking
+Configuration can happen in the Client or on Transport level.
+
+## Client
+
+```go
+client := &http.Client{
+    Transport       RoundTripper
+    CheckRedirect   func(req *Request, via []*Request) error
+    Jar             CookieJar
+    Timeout         time.Duration
+}
+```
+
+The package defines a default client:
+
+```go
+// DefaultClient is the default Client and is used by Get, Head, and Post.
+var DefaultClient = &Client{}
+```
+
+Note about timeout:
+
+> Timeout specifies a time limit for requests made by this
+> Client. The timeout includes connection time, any
+> redirects, and reading the response body. The timer remains
+> running after Get, Head, Post, or Do return and will
+> interrupt reading of the Response.Body.
+>
+> **A Timeout of zero means no timeout.**
+
+### Example Redirect Tracking
+
+Goal: Do a request and **record all intermediate requests** between initial
+request and first non-redirect request.
+
+
+> **ErrUseLastResponse** can be returned by Client.CheckRedirect hooks to control
+> how redirects are processed. If returned, the next request is not sent and
+> the most recent response is returned with its body unclosed.
+
+```go
+    ...
+    Client: &http.Client{
+        Timeout: 30 * time.Second,
+        CheckRedirect: func(req *http.Request, via []*http.Request) error {
+            return http.ErrUseLastResponse
+        },
+    ...
+```
+
+Example: [x/record3xx.go](x/record3xx.go) -- a client that keeps track of redirect hops.
+
+```shell
+$ go run record3xx.go http://bibpurl.oclc.org/web/6147
+[1] 302 Moved Temporarily http://bibpurl.oclc.org/web/6147 <nil>
+[2] 301 Moved Permanently http://www.math.washington.edu/~ejpecp/ECP/index.php <nil>
+[3] 302 Found https://www.math.washington.edu/~ejpecp/ECP/index.php <nil>
+[4] 301 Moved Permanently https://math.washington.edu/~ejpecp/ECP/index.php <nil>
+[5] 301 Moved Permanently https://sites.math.washington.edu/~ejpecp/ECP/index.php <nil>
+[6] 200 OK https://sites.math.washington.edu/~burdzy/EJPECP <nil>
+
+$ go run record3xx.go ub.uni-leipzig.de
+[1] 301 Moved Permanently http://ub.uni-leipzig.de <nil>
+[2] 307 Temporary Redirect https://www.ub.uni-leipzig.de/ <nil>
+[3] 200 OK https://www.ub.uni-leipzig.de/start/ <nil>
+```
+
+## Transport
+
+Transport has a few more options.
 
 # Tracing
