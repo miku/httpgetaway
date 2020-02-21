@@ -54,4 +54,7 @@ func main() {
 	if _, err := client.Do(req); err != nil {
 		log.Fatal(err)
 	}
+	if _, err := client.Do(req); err != nil {
+		log.Fatal(err)
+	}
 }
