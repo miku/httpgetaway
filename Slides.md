@@ -97,6 +97,10 @@ An interface (w) and a struct (r).
 
 # Configuration and Timeouts
 
+Various levels:
+
+![](static/levels.png)
+
 Configuration can happen in the Client or on Transport level.
 
 ## Client
@@ -167,5 +171,22 @@ $ go run record3xx.go ub.uni-leipzig.de
 ## Transport
 
 Transport has a few more options.
+
+> Transport is an implementation of RoundTripper that supports HTTP,
+> HTTPS, and HTTP proxies (for either HTTP or HTTPS with CONNECT).
+
+```go
+tr := &http.Transport{
+    MaxIdleConns:       10,
+    IdleConnTimeout:    30 * time.Second,
+    DisableCompression: true,
+}
+client := &http.Client{Transport: tr}
+resp, err := client.Get("https://example.com")
+```
+
+Other options:
+
+
 
 # Tracing

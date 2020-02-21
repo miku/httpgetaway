@@ -1,0 +1,16 @@
+digraph D {
+  graph [fontname = "helvetica"];
+  node [fontname = "helvetica"];
+  edge [fontname = "helvetica"];
+
+  Get [shape=box label="http.Get and friends"];
+  Client [shape=box label="http.Client (redirect, cookies, timeout)"];
+  Transport [shape=box label="http.Transport (lower level details)"];
+  RoundTripper [shape=box label="RoundTripper"];
+
+  {rank = same; Transport; RoundTripper;}
+
+  Get -> Client;
+  Client -> Transport;
+  Transport -> RoundTripper [style=dashed label="is a"];
+}
