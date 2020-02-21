@@ -238,3 +238,40 @@ Requests](https://github.com/sethgrid/pester/blob/68a33a018ad0ac8266f272ec669307
 
 # Tracing
 
+Allows interception of HTTP requests on various occasions (currently 16).
+
+* create a usual request
+* create a `http.ClientTrace` and provide callback
+* decorate request
+* run
+
+```go
+    // ...
+    req, err := http.NewRequest("GET", "https://golangleipzig.space", nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // callbacks
+    trace := &httptrace.ClientTrace{
+        GotConn: func(connInfo httptrace.GotConnInfo) {
+            fmt.Printf("Got Conn: %+v\n", connInfo)
+        },
+        DNSDone: func(dnsInfo httptrace.DNSDoneInfo) {
+            fmt.Printf("DNS Info: %+v\n", dnsInfo)
+        },
+    }
+
+    // decorate
+    req = req.WithContext(httptrace.WithClientTrace(req.Context(), trace))
+
+    // client "Do" or Transport "RoundTrip"
+    _, err = http.DefaultTransport.RoundTrip(req)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // ...
+```
+
+* example: [x/trace1.go](x/trace1.go)
