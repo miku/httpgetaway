@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/hijack", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request) {
 		// A responseWriter can be a hijacker.
 		hj, ok := w.(http.Hijacker)
 		if !ok {
@@ -19,6 +19,7 @@ func main() {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
+		log.Printf("hijacked connection from %v", r.RemoteAddr)
 		// Don't forget to close the connection:
 		defer conn.Close()
 		bufrw.WriteString("Now we're speaking raw TCP. Say hi: ")
@@ -33,6 +34,6 @@ func main() {
 	})
 
 	listen := "localhost:9900"
-	log.Printf("go to http://%s/hijack", listen)
+	log.Printf("go to http://%s/hi", listen)
 	log.Fatal(http.ListenAndServe(listen, nil))
 }
