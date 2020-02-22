@@ -4,7 +4,7 @@
 
 Configuration options and extension points for HTTP clients.
 
-> Golang Leipzig, 2020-02-21, 19:00, Martin Czygan <martin.czygan@gmail.com>
+> [Golang Leipzig](https://golangleipzig.space/), 2020-02-21, 19:00, Martin Czygan <martin.czygan@gmail.com>
 
 # Motivation
 
