@@ -334,3 +334,4 @@ Tool: [httpstat](https://github.com/davecheney/httpstat)
     HTTP/2 is used by 43.4% of all the websites.
     https://w3techs.com/technologies/details/ce-http2
 -->
+
