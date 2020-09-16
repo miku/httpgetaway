@@ -18,9 +18,21 @@ proxies can be fun and useful.
 
 # Proxy Types
 
+![](static/proxytypes.png)
+
 * forward
-* reverse (nginx, https://docs.traefik.io/getting-started/quick-start/,
-* TLS offloading
+* reverse
+
+## Forward
+
+* implicit and explicit
+* implicit: corporate FW; SSL decrypt
+* explicit: need to set on client (mitm, archiving, caching, security, ip rotation, ...)
+
+## Reverse
+
+* handle incoming requests, load balancing, HAvailability, mu-service
+  configuration and routing, rate limiting, a/b and canary testing, ...
 
 # Standard library support
 
