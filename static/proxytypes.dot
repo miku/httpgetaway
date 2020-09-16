@@ -1,0 +1,10 @@
+digraph proxy {
+    proxy -> forward;
+    proxy -> reverse;
+
+    forward -> implicit;
+    forward -> explicit;
+
+    implicit -> "corporate fw";
+    explicit -> "need to set on client";
+}

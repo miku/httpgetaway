@@ -32,3 +32,5 @@ proxies can be fun and useful.
 
 * https://github.com/creack/goproxy
 * https://github.com/jamesmoriarty/goforward
+* https://github.com/smartystreets/cproxy
+* https://github.com/davidfstr/nanoproxy
