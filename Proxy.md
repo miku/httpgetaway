@@ -98,8 +98,8 @@ which is quite nice. If an error is returned, the request will fail
 ([x/proxyerr.go](x/proxyerr.go)).
 
 The implementation looks up the proxy from environment variables only once
-(since it seems this lookup can be expensive on Windows ("This mitigates
-expensive lookups on some platforms (e.g. Windows)").
+(since it seems this lookup can be expensive on Windows (*This mitigates
+expensive lookups on some platforms (e.g. Windows)*).
 
 Here, the standard library code branches out to:
 
