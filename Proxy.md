@@ -98,16 +98,16 @@ which is quite nice. If an error is returned, the request will fail
 ([x/proxyerr.go](x/proxyerr.go)).
 
 The implementation looks up the proxy from environment variables only once
-(since it seems this lookup can be expensive on Windows (*This mitigates
-expensive lookups on some platforms (e.g. Windows)*).
+(since it seems this lookup can be expensive on Windows: *This mitigates
+expensive lookups on some platforms (e.g. Windows)*.
 
 Here, the standard library code branches out to:
 
 * [x/net/http/httpproxy](https://godoc.org/golang.org/x/net/http/httpproxy)
 
-> // Package httpproxy provides support for HTTP proxy determination
-> // based on environment variables, as provided by net/http's
-> // ProxyFromEnvironment function.
+> Package httpproxy provides support for HTTP proxy determination based on
+> environment variables, as provided by net/http's ProxyFromEnvironment
+> function.
 
 Fun fact, there seemingly was a CGI (catchy name) CVE in 2016 -
 https://httpoxy.org/ - CGI puts the Proxy header from an incoming request into
