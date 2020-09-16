@@ -134,9 +134,13 @@ There are a myriad of implementations and libraries available:
 
 * [https://github.com/elazarl/goproxy](https://github.com/elazarl/goproxy)
 * [https://github.com/telanflow/mps](https://github.com/telanflow/mps)
+* [https://github.com/smartystreets/cproxy](https://github.com/smartystreets/cproxy)
+* ...
 
-As an example, we try to implement an "ip rotation proxy" that routes requests
-to a set of other proxies, e.g. in a round robin style.
+As illustration, we use an "ip rotation proxy" that routes requests to a set of
+other proxies, e.g. in a round robin style.
+
+![](static/fluxproxy.png)
 
 # Skeleton
 

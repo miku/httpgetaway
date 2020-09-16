@@ -1,0 +1,12 @@
+digraph fluxproxy {
+    client -> "fluxproxy";
+    "fluxproxy" -> "proxy 1" [style=dashed];
+    "fluxproxy" -> "proxy 2" [style=dashed];
+    "fluxproxy" -> "proxy 3" [style=dashed];
+    "fluxproxy" -> "proxy 4" [style=dashed];
+
+    "proxy 1" -> "destination" [style=dashed];
+    "proxy 2" -> "destination" [style=dashed];
+    "proxy 3" -> "destination" [style=dashed];
+    "proxy 4" -> "destination" [style=dashed];
+}
