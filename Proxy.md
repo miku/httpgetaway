@@ -88,7 +88,7 @@ func Get(url string) (resp *Response, err error) {
 }
 ```
 
-The `ProxyFromEnvironment` is actually a function type:
+The `Proxy` field is a function type:
 
 ```go
 func(*Request) (*url.URL, error)
