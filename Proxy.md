@@ -158,7 +158,10 @@ Snippet for HTTP:
 Following scenario:
 
 * client has an HTTP and HTTPS proxy configured, which listens on an HTTP port
-* when the client requests a HTTPS site, it sends a HTTP CONNECT to the server in order to requests a tunnel
+* when the client requests a HTTPS site, it sends a HTTP
+  [CONNECT](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/CONNECT)
+to the server in order to request a tunnel
+([RFC7231 4.3.6](https://tools.ietf.org/html/rfc7231#section-4.3.6)).
 
 ```
 CONNECT www.google.com HTTP/1.1
