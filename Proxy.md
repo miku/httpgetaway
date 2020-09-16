@@ -1,8 +1,11 @@
 # HTTP Getaway Part 2: HTTP proxy intro
 
-> Martin Czygan, 2020-09-17, 19:00 CEST, https://golangleipzig.space
+> Martin Czygan, 2020-09-17, 19:00 CEST, Short talk at Leipzig Gophers #12
+> (online), https://golangleipzig.space
 
-Background: I recently had the chance to learn more about proxy servers.
+Background: I recently had the chance to learn more about proxy servers, as I
+am looking into proxies for archiving purposes (distributed crawling/ip
+rotation and web archiving).
 
 Proxy servers are ubiquitous, and they embody the rule:
 
@@ -10,6 +13,10 @@ Proxy servers are ubiquitous, and they embody the rule:
 
 If you have a networking problem, a proxy might be a solution. Beside that,
 proxies can be fun and useful.
+
+# I ordered a tech book from 22 years ago
+
+![](static/luotonen1998.jpg)
 
 # Outline
 
