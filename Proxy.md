@@ -88,8 +88,14 @@ func Get(url string) (resp *Response, err error) {
 }
 ```
 
-The `ProxyFromEnvironment` is actually a function type: `func(*Request)
-(*url.URL, error)` - which is quite nice.
+The `ProxyFromEnvironment` is actually a function type:
+
+```go
+func(*Request) (*url.URL, error)
+```
+
+which is quite nice. If an error is returned, the request will fail
+([x/proxyerr.go](x/proxyerr.go)).
 
 The implementation looks up the proxy from environment variables only once
 (since it seems this lookup can be expensive on Windows ("This mitigates
