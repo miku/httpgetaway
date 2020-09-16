@@ -14,9 +14,11 @@ Proxy servers are ubiquitous, and they embody the rule:
 If you have a networking problem, a proxy might be a solution. Beside that,
 proxies can be fun and useful.
 
-# I ordered a tech book from 22 years ago
+# A tech book from 22 years ago
 
 ![](static/luotonen1998.jpg)
+
+I got a copy (from [betterworldbooks.com](https://www.betterworldbooks.com/)).
 
 # Outline
 
