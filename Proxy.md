@@ -117,8 +117,8 @@ HTTP_PROXY, there you go. (https://github.com/golang/go/issues/16405).
 
 There are two functions in the standard library:
 
-* http.ProxyFromEnvironment (default)
-* http.ProxyURL - uses a fixed URL
+* `http.ProxyFromEnvironment` (default)
+* `http.ProxyURL` - uses a fixed URL
 
 # Reverse Proxy notes
 
