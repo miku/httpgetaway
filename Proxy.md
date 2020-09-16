@@ -14,6 +14,7 @@ proxies can be fun and useful.
 # Outline
 
 * Proxy types (forward, reverse, ...)
+* How does a client use a proxy?
 * What standard library support is there?
 * Writing a proxy from scratch: HTTP, HTTPS.
 
@@ -97,14 +98,63 @@ Fun fact, there seemingly was a CGI (catchy name) CVE in 2016 -
 https://httpoxy.org/ - CGI puts the Proxy header from an incoming request into
 HTTP_PROXY, there you go. (https://github.com/golang/go/issues/16405).
 
+# Customizing http.Transport Proxy
 
+There are two functions in the standard library:
 
+* http.ProxyFromEnvironment (default)
+* http.ProxyURL - uses a fixed URL
 
-# Standard library support
+# Reverse Proxy notes
 
-* set proxy on transport, defaults to "ProxyFromEnvironment"
-* x/net/proxy
-* http/httputil/reverseproxy.go, https://gist.github.com/JalfResi/6287706
+* There is [http/httputil/reverseproxy.go](https://golang.org/src/net/http/httputil/reverseproxy.go)
+
+...
+
+* TODO: reverse proxy example
+
+# How to write a basic proxy
+
+There are a myriad of implementations and libraries available:
+
+* [https://github.com/elazarl/goproxy](https://github.com/elazarl/goproxy)
+* [https://github.com/telanflow/mps](https://github.com/telanflow/mps)
+
+As an example, we try to implement an "ip rotation proxy" that routes requests
+to a set of other proxies, e.g. in a round robin style.
+
+# Skeleton
+
+We want a HTTP handler and we want to handle incoming requests.
+
+* HTTP requests are accepted, a RoundTripper in the proxy fetches the resource on behalf of the client and copies headers and body into the client response.
+* For HTTPS, we cannot do this - as we require end-to-end encryption.
+
+Snippet for HTTP:
+
+```go
+    copyHeader(resp.Header, w.Header(), true) // For now just add all headers.
+    w.WriteHeader(resp.StatusCode)            // Need to pass status code.
+    n, err := io.Copy(w, resp.Body)           // Copy body.
+```
+
+# HTTPS handling
+
+Following scenario:
+
+* client has an HTTP and HTTPS proxy configured, which listens on an HTTP port
+* when the client requests a HTTPS site, it sends a HTTP CONNECT to the server in order to requests a tunnel
+
+```
+CONNECT www.google.com HTTP/1.1
+Host: www.google.com
+Proxy-Connection: Keep-Alive
+```
+
+The `Proxy-Connection` header is somewhat disputed.
+
+> [Why does curl send a Proxy-Connection header, even though the RFC seems to discourage it?](https://stackoverflow.com/questions/62722430/why-does-curl-send-a-proxy-connection-header-even-though-the-rfc-seems-to-disco)
+
 
 # Misc
 
