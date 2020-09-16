@@ -49,7 +49,7 @@ In this talk, we focus on forward proxies only.
 
 # How does a client use a proxy?
 
-* environment variables, [are these
+* HTTP_PROXY, HTTPS_PROXY, NO_PROXY environment variables, [are these
   standard](https://superuser.com/questions/944958/are-http-proxy-https-proxy-and-no-proxy-environment-variables-standard)?
 probably not.
 
