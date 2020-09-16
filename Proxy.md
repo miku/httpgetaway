@@ -120,14 +120,6 @@ There are two functions in the standard library:
 * `http.ProxyFromEnvironment` (default)
 * `http.ProxyURL` - uses a fixed URL
 
-# Reverse Proxy notes
-
-* There is [http/httputil/reverseproxy.go](https://golang.org/src/net/http/httputil/reverseproxy.go)
-
-...
-
-* TODO: reverse proxy example
-
 # How to write a basic proxy
 
 There are a myriad of implementations and libraries available:
@@ -142,7 +134,7 @@ other proxies, e.g. in a round robin style.
 
 ![](static/fluxproxy.png)
 
-# Skeleton
+## Skeleton
 
 We want a HTTP handler and we want to handle incoming requests.
 
@@ -157,7 +149,7 @@ Snippet for HTTP:
     n, err := io.Copy(w, resp.Body)           // Copy body.
 ```
 
-# HTTPS handling
+## HTTPS handling
 
 Following scenario:
 
@@ -167,15 +159,56 @@ Following scenario:
 to the server in order to request a tunnel
 ([RFC7231 4.3.6](https://tools.ietf.org/html/rfc7231#section-4.3.6)).
 
+This tunnel is technically not restricted to HTTPS, but most often is - also for security reasons.
+
 ```
 CONNECT www.google.com HTTP/1.1
 Host: www.google.com
 Proxy-Connection: Keep-Alive
 ```
 
-The `Proxy-Connection` header is somewhat disputed.
+The `Proxy-Connection` header is somewhat obsolete.
 
 > [Why does curl send a Proxy-Connection header, even though the RFC seems to discourage it?](https://stackoverflow.com/questions/62722430/why-does-curl-send-a-proxy-connection-header-even-though-the-rfc-seems-to-disco)
+
+## Hijack
+
+* An `http.Hijacker` allows to access an underlying connection, e.g. from a ResponseWriter.
+
+```go
+func (h *Handler) handleHTTPS(w http.ResponseWriter, r *http.Request) {
+    hj, ok := w.(http.Hijacker)
+    ...
+    conn, _, err := hj.Hijack()
+    ...
+```
+
+## Proxy Conn
+
+The proxy needs to establish a connection to the exit node.
+
+```go
+pconn, err := net.DialTimeout("tcp", proxyURL.Host, 3*time.Second)
+```
+
+Then, another CONNECT needs to establish a link to the exit proxy. The first conversation is HTTP.
+
+```go
+fmt.Fprintf(pconn, "CONNECT %s HTTP/1.1\r\n", r.URL.Host)
+fmt.Fprintf(pconn, "Host: %s\r\n", r.URL.Host)
+fmt.Fprintf(pconn, "User-Agent: Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)\r\n")
+fmt.Fprintf(pconn, "Proxy-Connection: Keep-Alive\r\n")
+fmt.Fprintf(pconn, "\r\n")
+```
+
+## Mild Paranoia
+
+Many things can go wrong and during testing I used a number of broken or
+restriced open proxy servers.
+
+The main idea is that after CONNECT, the proxy will come back with an HTTP
+status code. Sometimes it does not, or if will not be a 200 OK. We can peek
+into the connection (once established), with `pconn.Read()`.
 
 
 # Misc
