@@ -25,7 +25,7 @@ I got a copy (from [betterworldbooks.com](https://www.betterworldbooks.com/)).
 * Proxy types (forward, reverse, ...)
 * How does a client use a proxy?
 * What standard library support is there?
-* Writing a proxy from scratch: HTTP, HTTPS.
+* Writing a proxy from scratch, kind of: HTTP, HTTPS.
 
 # Proxy Types
 
