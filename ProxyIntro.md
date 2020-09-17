@@ -153,6 +153,7 @@ Sketch:
 ```go
 type ProxyRotate struct {
     Hosts []*url.URL
+    i     int
 }
 
 func (p *ProxyRotate) Cycle(r *http.Request) (*url.URL, error) {
