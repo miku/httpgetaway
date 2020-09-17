@@ -338,6 +338,10 @@ Lots of TODOs:
 
 # Resources
 
+Clipart from: https://etc.usf.edu/clipart/4400/4448/knots_5.htm
+
+Various proxy implementations:
+
 * https://github.com/creack/goproxy
 * https://github.com/jamesmoriarty/goforward
 * https://github.com/smartystreets/cproxy
