@@ -38,7 +38,8 @@ I got a copy (from [betterworldbooks.com](https://www.betterworldbooks.com/)).
 
 * implicit and explicit
 * implicit: corporate FW; SSL decrypt
-* explicit: need to set on client (mitm, archiving, caching, security, ip rotation, ...)
+* explicit: need to set on client
+* use cases: mitm, archiving, caching, security, ip rotation, and many more
 
 ## Reverse
 
