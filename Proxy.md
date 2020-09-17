@@ -134,6 +134,35 @@ other proxies, e.g. in a round robin style.
 
 ![](static/fluxproxy.png)
 
+## The easy part
+
+Thanks to the flexible Proxy function type, we can supply our own proxy function.
+
+Sketch:
+
+```go
+type ProxyRotate struct {
+    Hosts []*url.URL
+}
+
+func (p *ProxyRotate) Cycle(r *http.Request) (*url.URL, error) {
+    if len(p.Hosts) == 0 {
+        return nil, nil
+    }
+    i := p.i % int64(len(p.Hosts))
+    p.i++
+    return p.Hosts[i], nil
+}
+```
+
+We can set this in transport and be done with it.
+
+```go
+...
+pr := ProxyRotate{Hosts: ...}
+tr := &http.Transport{Proxy: pr.Cycle}
+```
+
 ## Skeleton
 
 We want a HTTP handler and we want to handle incoming requests.
@@ -201,17 +230,92 @@ fmt.Fprintf(pconn, "Proxy-Connection: Keep-Alive\r\n")
 fmt.Fprintf(pconn, "\r\n")
 ```
 
-## Mild Paranoia
+## The network is reliable
 
 Many things can go wrong and during testing I used a number of broken or
-restriced open proxy servers.
+restriced proxy servers.
 
 The main idea is that after CONNECT, the proxy will come back with an HTTP
 status code. Sometimes it does not, or if will not be a 200 OK. We can peek
-into the connection (once established), with `pconn.Read()`.
+into the response stream (once the conn is established):
+
+```go
+var buf = make([]byte, 12)
+n, err := pconn.Read(buf)
+...
+```
+
+The response to a CONNECT does not contain any body.
+
+> (Successful) responses to a CONNECT request method (Section 4.3.6 of
+> [RFC7231]) switch to tunnel mode instead of having a message body.
+
+> Any 2xx (Successful) response to a CONNECT request implies that the
+> connection will become a tunnel immediately after the empty line that
+> concludes the header fields.  A client MUST ignore any Content-Length or
+> Transfer-Encoding header fields received in such a message.
+
+## Wiring up
+
+The tunneling can be implemented by letting two goroutines copy bytes from
+upstream to downstream and vice versa.
+
+```go
+go copyClose(pconn, conn)
+go copyClose(conn, pconn)
+```
+
+We want to only half-close a connection, when done. There is no standard
+library interface for that, but easy enough to write.
+
+```go
+// CloseWriter implements CloseWrite, as implemented by e.g. net.TCPConn.
+type CloseWriter interface {
+    CloseWrite() error
+}
+
+// CloseReader implements CloseRead, as implements by e.g. net.TCPConn.
+type CloseReader interface {
+    CloseRead() error
+}
+```
+
+## Mighty io.Copy
+
+Cautious implementation of `copyClose`
+
+```go
+func copyClose(dst io.WriteCloser, src io.ReadCloser) (n int64, err error) {
+    var serr, derr error
+    n, err = io.Copy(dst, src)
+    if v, ok := src.(CloseReader); ok {
+        serr = v.CloseRead()
+    } else {
+        serr = src.Close()
+    }
+    if v, ok := dst.(CloseWriter); ok {
+        derr = v.CloseWrite()
+    } else {
+        derr = dst.Close()
+    }
+    if err == nil && serr == nil && derr == nil {
+        return n, nil
+    }
+    return n, fmt.Errorf("copyClose failed: copy: %v, s: %v, d: %v", err, serr, derr)
+}
+```
+
+## Wrap up
+
+* proxy unpolished, not open source (yet), but works
+
+Lots of TODOs:
+
+* need to add context and timeout to a complete flow
+* optimized proxy selection
 
 
-# Misc
+# Resources
 
 * https://github.com/creack/goproxy
 * https://github.com/jamesmoriarty/goforward
