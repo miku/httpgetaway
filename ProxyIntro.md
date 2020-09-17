@@ -1,6 +1,6 @@
 # HTTP Getaway (part 2): HTTP proxy intro
 
-> Martin Czygan, 2020-09-17, 19:00 CEST, Short talk at Leipzig Gophers #12
+> Martin Czygan, 2020-09-17, 19:00 CEST, short talk at Leipzig Gophers #12
 > (online), https://golangleipzig.space
 
 ----
