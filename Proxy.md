@@ -166,7 +166,7 @@ tr := &http.Transport{Proxy: pr.Cycle}
 
 ## Skeleton
 
-We want a HTTP handler and we want to handle incoming requests.
+We want a HTTP handler and we want to [handle](https://golang.org/pkg/net/http/#Handler) incoming requests.
 
 ```go
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
