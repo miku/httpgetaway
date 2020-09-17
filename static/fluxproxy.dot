@@ -1,12 +1,35 @@
 digraph fluxproxy {
+    concentrate=true;
     client -> "fluxproxy";
+    "fluxproxy" -> client;
+
     "fluxproxy" -> "proxy 1" [style=dashed];
     "fluxproxy" -> "proxy 2" [style=dashed];
-    "fluxproxy" -> "proxy 3" [style=dashed];
+    "fluxproxy" -> "proxy 3" [style=solid];
     "fluxproxy" -> "proxy 4" [style=dashed];
+
+    "proxy 1" -> "fluxproxy" [style=dashed];
+    "proxy 2" -> "fluxproxy" [style=dashed];
+    "proxy 3" -> "fluxproxy" [style=solid];
+    "proxy 4" -> "fluxproxy" [style=dashed];
+
+    subgraph {
+
+        "proxy 1";
+        "proxy 2";
+        "proxy 3";
+        "proxy 4";
+
+        rank = same; "proxy 1", "proxy 2", "proxy 3", "proxy 4";
+
+    }
+
+    "proxy 3" -> "fluxproxy";
 
     "proxy 1" -> "destination" [style=dashed];
     "proxy 2" -> "destination" [style=dashed];
-    "proxy 3" -> "destination" [style=dashed];
+    "proxy 3" -> "destination" [style=solid];
     "proxy 4" -> "destination" [style=dashed];
+
+    "destination" -> "proxy 3";
 }
