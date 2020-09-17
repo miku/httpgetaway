@@ -168,8 +168,25 @@ tr := &http.Transport{Proxy: pr.Cycle}
 
 We want a HTTP handler and we want to handle incoming requests.
 
-* HTTP requests are accepted, a RoundTripper in the proxy fetches the resource on behalf of the client and copies headers and body into the client response.
-* For HTTPS, we cannot do this - as we require end-to-end encryption.
+```
+func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    ...
+    if r.Method == "CONNECT" {
+        h.handleHTTPS(w, r)
+        return
+    }
+    // HTTP (and other, like websockets) goes here ...
+}
+```
+
+* HTTP requests are accepted, a RoundTripper in the proxy fetches the resource
+  on behalf of the client and copies headers and body into the client response.
+HTTP is fully inspectable and adjustable.
+* For HTTPS, we cannot do this - as we require end-to-end encryption (in fact,
+  e.g. [cproxy](https://github.com/smartystreets/cproxy) is a example
+workaround the opaqueness of HTTPS for a proxy, namely adding client ip address
+by using HAProxy [PROXY
+protocol](https://www.haproxy.com/blog/haproxy/proxy-protocol/)).
 
 Snippet for HTTP:
 
@@ -189,7 +206,8 @@ Following scenario:
 to the server in order to request a tunnel
 ([RFC7231 4.3.6](https://tools.ietf.org/html/rfc7231#section-4.3.6)).
 
-This tunnel is technically not restricted to HTTPS, but most often is - also for security reasons.
+This tunnel is technically not restricted to HTTPS, but most often is - also
+for security reasons. Note-to-self: setup proxy to workaround HTTP only wifi.
 
 ```
 CONNECT www.google.com HTTP/1.1
