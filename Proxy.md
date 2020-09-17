@@ -135,7 +135,7 @@ other proxies, e.g. in a round robin style.
 
 ![](static/fluxproxy.png)
 
-## The easy part
+## The easy part &#x1F535;
 
 Thanks to the flexible Proxy function type, we can supply our own proxy function.
 
@@ -164,7 +164,7 @@ pr := ProxyRotate{Hosts: ...}
 tr := &http.Transport{Proxy: pr.Cycle}
 ```
 
-## Skeleton
+## Skeleton &#x1F534;
 
 We want a HTTP handler and we want to handle incoming requests.
 
