@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-TARGETS := proxytypes.png fluxproxy.png
+TARGETS := proxytypes.png fluxproxy.png levels.png
 
 .PHONY: all
 all: $(TARGETS)
