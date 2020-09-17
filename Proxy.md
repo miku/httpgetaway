@@ -168,7 +168,7 @@ tr := &http.Transport{Proxy: pr.Cycle}
 
 We want a HTTP handler and we want to handle incoming requests.
 
-```
+```go
 func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     ...
     if r.Method == "CONNECT" {
