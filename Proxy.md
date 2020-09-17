@@ -135,9 +135,9 @@ other proxies, e.g. in a round robin style.
 
 ![](static/fluxproxy.png)
 
-## The easy part &#x1F539;
+## The easy part
 
-Thanks to the flexible Proxy function type, we can supply our own proxy function.
+&#x1F539; Thanks to the flexible Proxy function type, we can supply our own proxy function.
 
 Sketch:
 
