@@ -310,7 +310,7 @@ type CloseReader interface {
 
 ## Mighty io.Copy
 
-Cautious implementation of `copyClose`
+Cautious implementation of `copyClose` with [io.Copy](https://golang.org/pkg/io/#Copy).
 
 ```go
 func copyClose(dst io.WriteCloser, src io.ReadCloser) (n int64, err error) {
@@ -339,8 +339,14 @@ func copyClose(dst io.WriteCloser, src io.ReadCloser) (n int64, err error) {
 
 Lots of TODOs:
 
-* need to add context and timeout to a complete flow
+* need to add context and timeout to a complete flow, timeout reader?
 * optimized proxy selection
+
+## Aquarium
+
+[![asciicast](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8.svg)](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8)
+
+
 
 
 # Resources
