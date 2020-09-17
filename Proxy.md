@@ -276,6 +276,8 @@ The response to a CONNECT does not contain any body.
 
 ## Wiring up
 
+![](knots_5_lg.gif)
+
 The tunneling can be implemented by letting two goroutines copy bytes from
 upstream to downstream and vice versa.
 
