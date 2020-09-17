@@ -1,7 +1,11 @@
-# HTTP Getaway Part 2: HTTP proxy intro
+# HTTP Getaway (part 2): HTTP proxy intro
 
 > Martin Czygan, 2020-09-17, 19:00 CEST, Short talk at Leipzig Gophers #12
 > (online), https://golangleipzig.space
+
+----
+
+# Why
 
 Background: I recently had the chance to learn more about proxy servers, as I
 am looking into proxies for archiving purposes (distributed crawling/ip
@@ -120,6 +124,11 @@ There are two functions in the standard library:
 
 * `http.ProxyFromEnvironment` (default)
 * `http.ProxyURL` - uses a fixed URL
+
+# Two proxy examples
+
+* WARC proxy ([warcprox](https://github.com/internetarchive/warcprox))
+* fluxproxy (sketched here)
 
 # How to write a basic proxy
 
