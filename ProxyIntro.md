@@ -354,7 +354,7 @@ Lots of TODOs:
 
 ## Aquarium
 
-[![asciicast](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8.svg)](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8)
+<!-- [![asciicast](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8.svg)](https://asciinema.org/a/1vSGaDHm5M9WVdahD1mbq5sW8) -->
 
 
 
