@@ -304,7 +304,7 @@ library interface for that, but easy enough to write.
 > Few applications take advantage of this capability, as we mentioned earlier.
 > ([TCPIP-ILL
 > 18.5](http://people.na.infn.it/~garufi/didattica/CorsoAcq/Trasp/Lezione9/tcpip_ill/tcp_conn.htm#18_5),
-> [broken](https://www.excentis.com/blog/tcp-half-close-cool-feature-now-broken))
+> [broken](https://www.excentis.com/blog/blog-6/tcp-half-close-a-cool-feature-that-is-now-broken-66))
 
 ```go
 // CloseWriter implements CloseWrite, as implemented by e.g. net.TCPConn.
