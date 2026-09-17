@@ -55,8 +55,7 @@ In this talk, we focus on forward proxies only.
 # How does a client use a proxy?
 
 * HTTP_PROXY, HTTPS_PROXY, NO_PROXY environment variables, [are these
-  standard](https://superuser.com/questions/944958/are-http-proxy-https-proxy-and-no-proxy-environment-variables-standard)?
-probably not.
+  standard](https://superuser.com/questions/944958/are-http-proxy-https-proxy-and-no-proxy-environment-variables-standard)? Likely not.
 
 Where is the code to handle the environment variables?
 
